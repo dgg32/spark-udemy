@@ -7,6 +7,7 @@ nameLookup = FOREACH metadata GENERATE movieID, movieTitle, ToUnixTime(ToDate(re
 
 ratingsByMovie = GROUP ratings BY movieID;
 
+--https://stackoverflow.com/questions/29808460/how-does-group-as-work-in-pig
 avgRatings = FOREACH ratingsByMovie GENERATE group AS movieID, AVG(ratings.rating) AS avgRating;
 
 fiveStarMovies = FILTER avgRatings BY avgRating > 4.0;
